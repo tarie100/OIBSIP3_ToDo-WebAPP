@@ -42,16 +42,19 @@ function updateTaskLists() {
     // Populate lists with tasks
     tasks.forEach((task, index) => {
         const listItem = document.createElement('li');
+        const taskDescription = document.createElement('p');
+        taskDescription.textContent = task.description;
+        taskDescription.classList.add('white-book-line');
         listItem.textContent = task.description;
 
         if (task.completed) {
             listItem.classList.add('completed');
-            listItem.innerHTML += ` <button onclick="markIncomplete(${index})">Undo</button>`;
+            listItem.innerHTML += ` <button class="btn btn-warning" onclick="markIncomplete(${index})">Undo</button>`;
             completedTasksList.appendChild(listItem);
         } else {
-            listItem.innerHTML += ` <button onclick="markComplete(${index})">Done</button>`;
-            listItem.innerHTML += ` <button onclick="deleteTask(${index})">Delete</button>`;
-            listItem.innerHTML += ` <button onclick="editTask(${index}, prompt('Edit task:', '${task.description}'))">Edit</button>`;
+            listItem.innerHTML += ` <button class="btn btn-success" onclick="markComplete(${index})">Done</button>`;
+            listItem.innerHTML += ` <button class="btn btn-danger" onclick="deleteTask(${index})">Delete</button>`;
+            listItem.innerHTML += ` <button class="btn btn-secondary" onclick="editTask(${index}, prompt('Edit task:', '${task.description}'))">Edit</button>`;
             pendingTasksList.appendChild(listItem);
         }
         if (task.createdAt) {
