@@ -2,7 +2,7 @@ const tasks = [];
 function addTask() {
     const taskInput = document.getElementById('task-input');
     const taskDescription = taskInput.value.trim();
-    const username = document.getElementById('username-input').value.trim();
+    //const username = document.getElementById('username-input').value.trim();
     if (taskDescription) {
         tasks.push({
             description: taskDescription,
@@ -15,7 +15,7 @@ function addTask() {
 
         const formData = new FormData();
         formData.append('task_description', taskDescription);
-        formData.append('username', username);
+        /*formData.append('username', username);
 
         fetch('/add_task', {
             method: 'POST',
@@ -29,18 +29,19 @@ function addTask() {
         })
         .catch(error => {
             console.log('Error:', error);
-        });
+        });*/
     }
+
+        updateTaskLists();
 }
-       // updateTaskLists();
 
 function markComplete(index) {
     tasks[index].completed = true;
     tasks[index].completedAt = new Date();
 
-    const formData = new formData();
-    formData.append('task_index', index);
-    formData.append('username', document.getElementById('username-input').value.trim());
+    //const formData = new FormData();
+    //formData.append('task_index', index);
+    /*formData.append('username', document.getElementById('username-input').value.trim());
 
     fetch('/mark_complete', {
         method: 'POST',
@@ -53,20 +54,22 @@ function markComplete(index) {
         }
     })
     .catch(error =>{
-        console.error('Error:', error);
-    });
+        console.log('Error:', error);
+    });*/
+
+    updateTaskLists();
 }
-    //updateTaskLists();
 
 function markIncomplete(index) {
     tasks[index].completed = false;
     tasks[index].completedAt = null;
+    
 
-    const formData = new formData();
-    formData.append('task_index', index);
-    formData.append('username', document.getElementById('username-input').value.trim());
+    //const formData = new FormData();
+    //formData.append('task_index', index);
+    //formData.append('username', document.getElementById('username-input').value.trim());
 
-    fetch('/mark_Incomplete', {
+    /*fetch('/mark_Incomplete', {
         method: 'POST',
         body: formData
     })
@@ -78,16 +81,17 @@ function markIncomplete(index) {
     })
     .catch(error =>{
         console.error('Error:', error);
-    });
+    });*/
+
+    updateTaskLists();
 }
-    //updateTaskLists();
 
 function deleteTask(index) {
     tasks.splice(index, 1);
 
-    const formData = new formData();
+    let formData = new FormData();
     formData.append('task_index', index);
-    formData.append('username', document.getElementById('username-input').value.trim());
+    /*formData.append('username', document.getElementById('username-input').value.trim());
 
     fetch('/delete_task', {
         method: 'POST',
@@ -100,16 +104,17 @@ function deleteTask(index) {
         }
     })
     .catch(error =>{
-        console.error('Error:', error);
-    });
+        console.log('Error:', error);
+    });*/
+
+    updateTaskLists();
 }
-    //updateTaskLists();
 function editTask(index, newDescription){
     tasks[index].description = newDescription;
 
-    const formData = new formData();
+    const formData = new FormData();
     formData.append('task_index', index);
-    formData.append('username', document.getElementById('username-input').value.trim());
+    /*formData.append('username', document.getElementById('username-input').value.trim());
 
     fetch('/edit_task', {
         method: 'POST',
@@ -123,9 +128,10 @@ function editTask(index, newDescription){
     })
     .catch(error =>{
         console.error('Error:', error);
-    });
+    });*/
+
+    updateTaskLists();
 }
-    //updateTaskLists();
 function updateTaskLists() {
     const pendingTasksList = document.getElementById('pending-tasks');
     const completedTasksList = document.getElementById('completed-tasks');
