@@ -1,0 +1,54 @@
+body{
+    background-image: url(IMG2.avif);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.container {
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+li{
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    background-color: aliceblue;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+h1 {
+    text-align: center;
+}
+
+.add-task {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+.task-list {
+    margin-top: 20px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.completed {
+    text-decoration: line-through;
+}

@@ -1,8 +1,7 @@
 from datetime import datetime
 from flask import Flask, render_template, request, jsonify
-
 app = Flask(__name__)
-
+users = {}
 class ToDoItem:
     def __init__(self, description):
         self.description = description
@@ -19,7 +18,8 @@ class ToDoItem:
         self.completed_at = None
 
 class ToDoList:
-    def __init__(self):
+    def __init__(self, username):
+        self.username = username
         self.pending_tasks = []
         self.completed_tasks = []
     
@@ -49,7 +49,7 @@ class ToDoList:
         elif list_type == "completed":
             self.completed_tasks[task_index].description = new_description
 
-todo_list = ToDoList()
+todo_list = ToDoList('username')
 
 @app.route('/')
 def index():
@@ -58,26 +58,41 @@ def index():
 @app.route('/add_task', methods=['POST'])
 def add_task():
     task_description = request.form['task_description']
-    todo_list.add_task(task_description)
+    username = request.form.get('username')
+    #todo_list.add_task(task_description)
+    #return jsonify({'success': True})
+
+    if username is not users:
+        users[username] = ToDoList(username)
+    users[username].add_task(task_description)
     return jsonify({'success': True})
 
 @app.route('/mark_complete', methods=['POST'])
 def mark_complete():
     task_index = int(request.form['task_index'])
-    todo_list.mark_task_complete(task_index)
+    username = request.form.get('username')
+    if username in users:
+        users[username].mark_complete(task_index)
+    #todo_list.mark_task_complete(task_index)
     return jsonify({'success': True})
 
 @app.route('/mark_incomplete', methods=['POST'])
 def mark_incomplete():
     task_index = int(request.form['task_index'])
-    todo_list.mark_task_incomplete(task_index)
+    username = request.form.get('username')
+    if username in users:
+        users[username].mark_incomplete(task_index)
+    #todo_list.mark_task_incomplete(task_index)
     return jsonify({'success': True})
 
 @app.route('/delete_task', methods=['POST'])
 def delete_task():
     task_index = int(request.form['task_index'])
     list_type = request.form['list_type']
-    todo_list.delete_task(task_index, list_type)
+    username = request.form.get('username')
+    if username in users:
+        users[username].delete_task(task_index, list_type)
+    #todo_list.delete_task(task_index, list_type)
     return jsonify({'success': True})
 
 @app.route('/edit_task', methods=['POST'])
@@ -85,8 +100,11 @@ def edit_task():
     task_index = int(request.form['task_index'])
     new_description = request.form['new_description']
     list_type = request.form['list_type']
+    username = request.form.get('username')
+    if username in users:
+        users[username].edit_task(task_index, new_description, list_type)
 
-    todo_list.edit_task(task_index, new_description, list_type)
+    #todo_list.edit_task(task_index, new_description, list_type)
     return jsonify({'success': True})
 
 if __name__ == '__main__':
