@@ -53,7 +53,7 @@ todo_list = ToDoList('username')
 
 @app.route('/')
 def index():
-    return render_template('templates/index.html')
+    return render_template('/index.html')
 
 @app.route('/add_task', methods=['POST'])
 def add_task():
